@@ -29,6 +29,12 @@
 - **⚡ Real-Time Data Gravity**: Seamlessly integrates data from Jira, GitHub, and CI/CD pipelines via a high-performance Node.js backend.
 - **🛡️ Quality Sentinel**: Monitors Escaped Bug Rates and Deployment Frequency to ensure speed never sacrifices stability.
 
+## 🎭 The Dual Perspective
+DevFlow is engineered to solve for two distinct SDLC personas:
+
+1.  **The Individual Contributor (IC)**: Focuses on "The Likely Story." It provides high-frequency feedback on their specific development flow, helping them self-correct and identify technical debt.
+2.  **The Strategic Manager**: Provides a high-level "Team Overview" to identify systemic bottlenecks (e.g., pipeline delays) without micromanaging individual tasks.
+
 ## 📊 Core Intelligence (Assignment Metrics)
 | Metric | Purpose | Vector |
 | :--- | :--- | :--- |
