@@ -51,6 +51,14 @@ DevFlow was built using an advanced human-AI symbiotic workflow:
 
 ---
 
+## 📂 Core Systems Navigation
+*Quick access to the architectural spine of DevFlow:*
+
+- **[Quantum Logic (Metrics Engine)](src/utils/metrics.js)**: The mathematical core of the application.
+- **[Intelligence Interface (Dashboard)](src/App.jsx)**: The primary React interface.
+- **[Neural API (Backend)](server/server.cjs)**: The data serving layer.
+- **[Data Alchemy (Extraction Script)](extract_data.py)**: Automated workbook-to-JSON pipeline.
+
 ## ⚡ Quick Ignition
 1. **Calibrate**: `npm install`
 2. **Ignite**: `npm run dev`
