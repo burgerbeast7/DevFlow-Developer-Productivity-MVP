@@ -112,11 +112,11 @@ function App() {
             <Users size={20} />
             Manager View
           </div>
-          <div className="nav-item">
+          <div className={`nav-item ${view === 'project-health' ? 'active' : ''}`} onClick={() => setView('project-health')}>
             <Activity size={20} />
             Project Health
           </div>
-          <div className="nav-item">
+          <div className={`nav-item ${view === 'settings' ? 'active' : ''}`} onClick={() => setView('settings')}>
             <Settings size={20} />
             Settings
           </div>
@@ -137,11 +137,18 @@ function App() {
       {/* Main Content */}
       <main className="main-content">
         <header className="header">
-          <h1>{view === 'ic' ? 'Productivity Dashboard' : 'Team Overview'}</h1>
+          <h1>
+            {view === 'ic' && 'Productivity Dashboard'}
+            {view === 'manager' && 'Team Overview'}
+            {view === 'project-health' && 'Project Health'}
+            {view === 'settings' && 'User Settings'}
+          </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <p>{view === 'ic' 
-              ? `Welcome back, ${currentUser.developer_name}.`
-              : `Performance summary for ${currentUser.team_name}.`}
+            <p>
+              {view === 'ic' && `Welcome back, ${currentUser.developer_name}.`}
+              {view === 'manager' && `Performance summary for ${currentUser.team_name}.`}
+              {view === 'project-health' && `System stability & release health for ${currentUser.team_name}.`}
+              {view === 'settings' && `Manage your profile and dashboard preferences.`}
             </p>
             <span style={{ padding: '0.25rem 0.75rem', background: 'var(--primary-glow)', borderRadius: '20px', fontSize: '0.75rem', color: 'var(--primary)', border: '1px solid rgba(99,102,241,0.2)' }}>
               {currentUser.level} | {currentUser.team_name}
@@ -149,7 +156,7 @@ function App() {
           </div>
         </header>
 
-        {view === 'ic' ? (
+        {view === 'ic' && (
           <>
             {/* Metrics Grid */}
             <div className="metrics-grid">
@@ -241,12 +248,71 @@ function App() {
               </section>
             </div>
           </>
-        ) : (
+        )}
+
+        {view === 'manager' && (
           <div className="card fade-in">
             <h3>Manager Summary</h3>
-            <p style={{ color: 'var(--text-muted)' }}>The total team PR Throughput for {currentUser.team_name} is up 15%. However, Lead Time for Changes remains a bottleneck across several developers. Recommendation: Review deployment pipeline efficiency.</p>
-            <div style={{ marginTop: '2rem', height: '200px', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              [Team Performance Chart Placeholder]
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+              The total team PR Throughput for <strong>{currentUser.team_name}</strong> is up 15%. Average Cycle Time across the team is <strong>4.2 days</strong>. 
+              <br/><br/>
+              Bottleneck Alert: Lead Time for Changes is trending upwards due to increased manual regression testing in the Staging environment.
+            </p>
+            <div style={{ marginTop: '2rem', padding: '2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px dashed var(--card-border)' }}>
+              <h4>Team Performance Trend</h4>
+              <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', gap: '1rem', marginTop: '1rem' }}>
+                {[40, 70, 45, 90, 65, 80].map((h, i) => (
+                  <div key={i} style={{ flex: 1, height: `${h}%`, background: 'var(--primary)', borderRadius: '4px 4px 0 0', opacity: 0.3 + (i * 0.1) }}></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {view === 'project-health' && (
+          <div className="insight-container">
+            <section className="card fade-in">
+              <h3>System Stability</h3>
+              <div className="next-step-item">
+                <h4 style={{ color: 'var(--success)' }}>Build Status: Healthy</h4>
+                <p>94.2% of builds in the last 7 days passed on the first attempt.</p>
+              </div>
+              <div className="next-step-item">
+                <h4 style={{ color: 'var(--warning)' }}>Test Coverage: 76%</h4>
+                <p>Trending down 2% after the latest Payments API migration. Recommended: Add tests for PROJ-108.</p>
+              </div>
+            </section>
+            
+            <section className="card fade-in" style={{ animationDelay: '0.2s' }}>
+              <h3>Incident Log</h3>
+              <div className="next-step-item" style={{ borderLeftColor: 'var(--danger)' }}>
+                <h4>Hotfix DEP-003</h4>
+                <p>Resolved production latency issue in the checkout flow. Impact: 45 users.</p>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {view === 'settings' && (
+          <div className="card fade-in" style={{ maxWidth: '600px' }}>
+            <h3>Profile Settings</h3>
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '2rem' }}>
+              <div style={{ width: '80px', height: '80px', background: 'var(--primary-glow)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontSize: '2rem', fontWeight: 700 }}>
+                {currentUser.developer_name[0]}
+              </div>
+              <div>
+                <h4>{currentUser.developer_name}</h4>
+                <p style={{ color: 'var(--text-muted)' }}>{currentUser.developer_id} | {currentUser.level}</p>
+              </div>
+            </div>
+            
+            <div className="next-step-item">
+              <h4>Notifications</h4>
+              <p>Receive weekly productivity summaries via Slack.</p>
+            </div>
+            <div className="next-step-item">
+              <h4>API Integration</h4>
+              <p>Connected to: Jira, GitHub, Jenkins.</p>
             </div>
           </div>
         )}
