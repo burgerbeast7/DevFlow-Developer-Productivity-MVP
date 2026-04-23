@@ -38,6 +38,15 @@
 | **Deploy Freq** | Continuous Delivery Pulse | System Agility |
 | **Bug Rate** | Escaped Issues / Completed | Quality Integrity |
 
+## 📐 The Mathematical Framework
+DevFlow adheres strictly to the simplified SDLC logic defined in the assignment workbook:
+
+- **Lead Time ($LT$):** $\mu (t_{Deploy\_Success} - t_{PR\_Open})$
+- **Cycle Time ($CT$):** $\mu (t_{Issue\_Done} - t_{Issue\_InProgress})$
+- **PR Throughput ($\Phi$):** $\sum (PR_{Merged})_{Month}$
+- **Deployment Frequency ($f$):** $count(Deploy_{Success})_{Month}$
+- **Bug Rate ($\beta$):** $\frac{\sum Bugs_{Escaped}}{\sum Issues_{Completed}}$
+
 ## 🛠️ The Tech Arcanum
 - **Frontend**: React 18, Vite (Fractal Component Architecture)
 - **Styling**: Vanilla CSS (Cyber-Minimalist Design System)
