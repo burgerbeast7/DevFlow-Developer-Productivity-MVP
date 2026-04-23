@@ -61,10 +61,17 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Try local bundled data first for the static demo
-        const result = actualData;
-        setData(result);
-        const calculated = calculateMetrics(result, "DEV-001");
+        // Map raw actualData sheets to our application structure
+        const mappedData = {
+          developers: actualData.Dim_Developers,
+          issues: actualData.Fact_Jira_Issues,
+          pullRequests: actualData.Fact_Pull_Requests,
+          deployments: actualData.Fact_CI_Deployments,
+          bugs: actualData.Fact_Bug_Reports
+        };
+        
+        setData(mappedData);
+        const calculated = calculateMetrics(mappedData, "DEV-001");
         setMetrics(calculated);
         setInsight(getInterpretation(calculated));
         
@@ -78,7 +85,7 @@ function App() {
           setInsight(getInterpretation(liveCalculated));
         }
       } catch (error) {
-        console.log("Static mode: Using bundled data.");
+        console.error("Initialization Error:", error);
       } finally {
         setLoading(false);
       }
