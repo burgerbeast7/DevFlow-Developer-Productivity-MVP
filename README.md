@@ -5,6 +5,8 @@
 
 ![Hero Banner](banner.png)
 
+### [🌐 Live Intelligence Dashboard](https://burgerbeast7.github.io/DevFlow-Developer-Productivity-MVP)
+
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)

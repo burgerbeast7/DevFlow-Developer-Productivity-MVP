@@ -24,6 +24,7 @@ import {
 } from 'recharts';
 import { mockData } from './data/mockData';
 import { calculateMetrics, getInterpretation } from './utils/metrics';
+import actualData from './data/actualData.json';
 
 const chartData = [
   { name: 'Week 1', prs: 2, bugs: 0 },
@@ -60,14 +61,24 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/metrics');
-        const result = await response.json();
+        // Try local bundled data first for the static demo
+        const result = actualData;
         setData(result);
-        const calculated = calculateMetrics(result, "DEV-001"); // Default to Ava Chen
+        const calculated = calculateMetrics(result, "DEV-001");
         setMetrics(calculated);
         setInsight(getInterpretation(calculated));
+        
+        // Attempt to sync with live API if available
+        const response = await fetch('http://localhost:3001/api/metrics');
+        if (response.ok) {
+          const liveData = await response.json();
+          setData(liveData);
+          const liveCalculated = calculateMetrics(liveData, "DEV-001");
+          setMetrics(liveCalculated);
+          setInsight(getInterpretation(liveCalculated));
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log("Static mode: Using bundled data.");
       } finally {
         setLoading(false);
       }
